@@ -25,7 +25,10 @@ export const SignupForm = () => {
     const response = await CreateNewUserAction(formData);
 
     //@ts-ignore
-    Cookies.default.set("session_token", response.token as string);
+    Cookies.default.set("session_token", response.token, {
+      secure: true,
+      sameSite: "Lax",
+    });
 
     console.log(response);
   };

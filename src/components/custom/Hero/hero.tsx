@@ -8,9 +8,8 @@ export const Hero = () => {
           <Image
             src="/FarFromHome.gif"
             alt="Auto-running GIF"
-            layout="fill"
-            objectFit="cover"
-            className="rounded-lg"
+            fill
+            className="rounded-lg object-cover"
             unoptimized
           />
         </div>
