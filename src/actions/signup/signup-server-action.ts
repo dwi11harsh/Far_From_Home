@@ -1,13 +1,9 @@
 "use server";
 
 import { CreateJWT } from "@/lib/auth/create-JWT";
-import { SignupDataType } from "@/types";
 
-let userDatabase: Record<string, SignupDataType[]> = {
-  buyer: [],
-  seller: [],
-  contractor: [],
-};
+import { userDatabase } from "../users";
+import { SignupDataType } from "@/types";
 
 const CreateNewUserAction = async (formData: SignupDataType) => {
   if (!formData) {
@@ -23,7 +19,7 @@ const CreateNewUserAction = async (formData: SignupDataType) => {
     }
     userDatabase[formData.role].push(formData);
 
-    const sessionToken = await CreateJWT(formData.phone as string);
+    const sessionToken = await CreateJWT(formData);
 
     return {
       token: sessionToken,
