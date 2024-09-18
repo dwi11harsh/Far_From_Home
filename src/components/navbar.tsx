@@ -1,46 +1,53 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
-import { Menu, X, ChevronDown, ChevronRight, ChevronUp } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
+import React, { useState } from "react";
+import { Menu, X, ChevronDown, ChevronRight, ChevronUp } from "lucide-react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const menuItems = [
   {
-    name: 'Buyer',
-    href: '/buyer',
+    name: "Buyer",
+    href: "/buyer",
   },
   {
-    name: 'Contractor',
-    href: '/contractor',
+    name: "Contractor",
+    href: "/contractor",
   },
   {
-    name: 'Seller',
-    href: '/seller',
+    name: "Seller",
+    href: "/seller",
   },
-]
+];
 
 export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isSignupOpen, setIsSignupOpen] = useState(false) // Control signup dropdown
-  const router = useRouter()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false); // Control signup dropdown
+  const router = useRouter();
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
-
- 
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const handleClick = () => {
-    router.push('/')
-  }
+    router.push("/");
+  };
 
   return (
     <div className="relative max-w-full bg-green-700 py-1">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
         <div className="inline-flex items-center space-x-2">
-          <span className="font-bold text-white cursor-pointer" onClick={handleClick}>
-            <Image src="/BackgroundImage.png" alt="logo " width={100} height={100} className='rounded-lg' />
+          <span
+            className="font-bold text-white cursor-pointer"
+            onClick={handleClick}
+          >
+            <Image
+              src="/BackgroundImage.png"
+              alt="logo "
+              width={100}
+              height={100}
+              className="rounded-lg"
+            />
           </span>
         </div>
 
@@ -60,22 +67,26 @@ export default function Navbar() {
         </div>
 
         <div className="hidden lg:flex items-center space-x-4">
-        <button           className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-800 transition-colors"
-            onClick={() => router.push('/signup')}
+          <button
+            className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-800 transition-colors"
+            onClick={() => router.push("/signup")}
           >
-            Singup
+            Signup
           </button>
 
           <button
             className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-800 transition-colors"
-            onClick={() => router.push('/login')}
+            onClick={() => router.push("/login")}
           >
             Login
           </button>
         </div>
 
         <div className="ml-2 lg:hidden">
-          <Menu onClick={toggleMenu} className="h-6 w-6 text-white cursor-pointer" />
+          <Menu
+            onClick={toggleMenu}
+            className="h-6 w-6 text-white cursor-pointer"
+          />
         </div>
 
         {isMenuOpen && (
@@ -84,7 +95,9 @@ export default function Navbar() {
               <div className="px-5 pb-6 pt-5">
                 <div className="flex items-center justify-between">
                   <div className="inline-flex items-center space-x-2">
-                    <span className="font-bold text-green-700">Far From Home</span>
+                    <span className="font-bold text-green-700">
+                      Far From Home
+                    </span>
                   </div>
                   <div className="-mr-2">
                     <button
@@ -114,13 +127,13 @@ export default function Navbar() {
                 <div className="mt-6 flex space-x-2">
                   <button
                     className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-800 transition-colors"
-                    onClick={() => router.push('/login')}
+                    onClick={() => router.push("/login")}
                   >
                     Login
                   </button>
                   <button
                     className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-800 transition-colors"
-                    onClick={() => router.push('/signup')}
+                    onClick={() => router.push("/signup")}
                   >
                     Sign up
                   </button>
@@ -157,5 +170,5 @@ export default function Navbar() {
         </div>
       )}
     </div>
-  )
+  );
 }
