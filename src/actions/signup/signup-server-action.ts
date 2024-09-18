@@ -2,25 +2,19 @@
 
 import { CreateJWT } from "@/lib/auth/create-JWT";
 import { SignupDataType } from "@/types";
-import fs from "fs";
-import { NextResponse } from "next/server";
-import path from "path";
-
-const filePath = path.resolve(__dirname, "../../../../../../users");
+import { promises as fs } from "fs";
 
 const CreateNewUserAction = async (formData: SignupDataType) => {
-  const response: NextResponse = new NextResponse();
-
   if (!formData) {
     return {
       error: "Invalid Data",
       code: 400,
     };
   } else {
-    const jsonFilePath = path.resolve(filePath, `${formData.role}.json`);
+    const jsonFilePath = process.cwd() + `/users/${formData.role}.json`;
 
     try {
-      const data = await fs.promises.readFile(jsonFilePath, "utf8");
+      const data = await fs.readFile(jsonFilePath, "utf8");
 
       if (!data) {
         console.log("Empty JSON file");
@@ -29,7 +23,8 @@ const CreateNewUserAction = async (formData: SignupDataType) => {
       try {
         const parsedData = JSON.parse(data);
         parsedData.push(formData);
-        await fs.promises.writeFile(jsonFilePath, JSON.stringify(parsedData));
+
+        await fs.writeFile(jsonFilePath, JSON.stringify(parsedData));
 
         const sessionToken = await CreateJWT(formData.phone as string);
 
