@@ -71,7 +71,7 @@ export default function Navbar() {
             className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-800 transition-colors"
             onClick={() => router.push("/signup")}
           >
-            Signup
+            Singup
           </button>
 
           <button

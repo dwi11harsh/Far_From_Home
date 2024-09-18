@@ -10,8 +10,11 @@ import { FaSeedling, FaTractor, FaLeaf, FaPhone, FaHome } from "react-icons/fa";
 import { SignupDataType } from "@/types";
 import CreateNewUserAction from "@/actions/signup/signup-server-action";
 import * as Cookies from "js-cookie";
+import { useSetAtom } from "jotai";
+import { loginStateAtom } from "@/lib/atom";
 
 export const SignupForm = () => {
+  const setisLoggedIn = useSetAtom(loginStateAtom);
   const [formData, setFormData] = React.useState<SignupDataType>({
     fullname: "",
     phone: "",
@@ -25,6 +28,14 @@ export const SignupForm = () => {
     const response = await CreateNewUserAction(formData);
 
     Cookies.default.set("session_token", response.token as string);
+    setisLoggedIn(true);
+    if (formData.role === "buyer") {
+      location.href = "/buyer";
+    } else if (formData.role === "seller") {
+      location.href = "/seller";
+    } else if (formData.role === "contractor") {
+      location.href = "/contractor";
+    }
   };
 
   const handleInputChange = (
@@ -117,40 +128,42 @@ export const SignupForm = () => {
         />
       </div>
 
-      {/* Checkbox for Buyer */}
-      <div className="flex items-center space-x-2">
-        <Checkbox
-          id="buyer"
-          checked={formData.role === "buyer"}
-          onCheckedChange={() => handleRoleChange("buyer")}
-        />
-        <Label htmlFor="buyer" className="text-green-700">
-          Signup as Buyer
-        </Label>
-      </div>
+      <div className="flex items-center justify-between mx-6">
+        {/* Checkbox for Buyer */}
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="buyer"
+            checked={formData.role === "buyer"}
+            onCheckedChange={() => handleRoleChange("buyer")}
+          />
+          <Label htmlFor="buyer" className="text-green-700">
+            Buyer
+          </Label>
+        </div>
 
-      {/* Checkbox for Seller */}
-      <div className="flex items-center space-x-2">
-        <Checkbox
-          id="seller"
-          checked={formData.role === "seller"}
-          onCheckedChange={() => handleRoleChange("seller")}
-        />
-        <Label htmlFor="seller" className="text-green-700">
-          Signup as Seller
-        </Label>
-      </div>
+        {/* Checkbox for Seller */}
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="seller"
+            checked={formData.role === "seller"}
+            onCheckedChange={() => handleRoleChange("seller")}
+          />
+          <Label htmlFor="seller" className="text-green-700">
+            Seller
+          </Label>
+        </div>
 
-      {/* Checkbox for Contractor */}
-      <div className="flex items-center space-x-2">
-        <Checkbox
-          id="contractor"
-          checked={formData.role === "contractor"}
-          onCheckedChange={() => handleRoleChange("contractor")}
-        />
-        <Label htmlFor="contractor" className="text-green-700">
-          Signup as Contractor
-        </Label>
+        {/* Checkbox for Contractor */}
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="contractor"
+            checked={formData.role === "contractor"}
+            onCheckedChange={() => handleRoleChange("contractor")}
+          />
+          <Label htmlFor="contractor" className="text-green-700">
+            Contractor
+          </Label>
+        </div>
       </div>
 
       {/* Submit Button */}

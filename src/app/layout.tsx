@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "../components/navbar";
 import { Footer } from "@/components/custom";
+import { Providers } from "@/lib/atom/providers";
 
 export const metadata: Metadata = {
   title: "Far From Home ",
@@ -17,9 +18,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <main className="max-w-8xl mx-auto">
-          <Navbar />
-          {children}
-          <Footer />
+          <Providers>
+            <Navbar />
+            {children}
+            <Footer />
+          </Providers>
         </main>
       </body>
     </html>
