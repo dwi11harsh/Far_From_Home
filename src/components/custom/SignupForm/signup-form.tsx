@@ -24,10 +24,8 @@ export const SignupForm = () => {
     event.preventDefault();
     const response = await CreateNewUserAction(formData);
 
-    if (response?.token) {
-      Cookies.default.set("session_token", response.token as string);
-      console.log("check cookies");
-    }
+    //@ts-ignore
+    Cookies.default.set("session_token", response.token as string);
 
     console.log(response);
   };
