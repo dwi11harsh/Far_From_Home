@@ -24,11 +24,20 @@ export const SignupForm = () => {
     event.preventDefault();
     const response = await CreateNewUserAction(formData);
 
-    //@ts-ignore
-    Cookies.default.set("session_token", response.token, {
-      secure: true,
-      sameSite: "Lax",
-    });
+    // Check if the token is undefined or not
+    if (response) {
+      if (response.token) {
+        Cookies.default.set("session_token", response.token, {
+          secure: true,
+          sameSite: "Lax",
+        });
+      } else {
+        alert("Error creating user");
+      }
+    } else {
+      console.error("Token is undefined");
+      // Optionally handle the error case here, such as showing a message to the user
+    }
 
     console.log(response);
   };
